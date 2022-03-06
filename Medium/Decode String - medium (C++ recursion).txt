@@ -1,0 +1,29 @@
+class Solution {
+    int pos = 0;
+public:
+    string decodeString(string s) {
+        int multi=0;
+        string decodedstring = "";
+        for (; pos<s.size(); pos++){
+            char ch = s[pos];
+            if(isdigit(ch)){
+                multi = multi*10 + (ch - '0');
+            }
+            else if(ch == '['){
+                pos++;
+                string substr = decodeString(s);
+                while(multi>0){
+                    decodedstring += substr;
+                    multi--;
+                }
+            }
+            else if(ch == ']'){
+                return decodedstring;
+            }
+            else{
+                decodedstring += ch;
+            }
+        }
+        return decodedstring;
+    }
+};

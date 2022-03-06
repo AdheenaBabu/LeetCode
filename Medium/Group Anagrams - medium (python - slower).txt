@@ -1,0 +1,18 @@
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        ans = []
+        res = []
+        str2 = []
+        for i in strs:
+            str2.append(sorted(i))
+        for i in range(0,len(strs)):
+            if(str2[i]==None):
+                continue;
+            ans.append(strs[i])
+            for j in range(i+1,len(strs)):
+                if str2[i] == str2[j]:
+                    ans.append(strs[j])
+                    str2[j] = None
+            res.append(list(ans))
+            ans = []
+        return res

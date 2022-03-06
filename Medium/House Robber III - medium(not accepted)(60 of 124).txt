@@ -1,0 +1,98 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    int sum1 = 0;
+    int sum2 = 0;
+public:
+    int rob(TreeNode* root) {
+        sum2 = root->val;
+        robUtil(root);
+        return max(sum1,sum2);
+    }
+    
+    int robUtil(TreeNode* root){
+        if (root==NULL)
+            return 0;
+        TreeNode* leftChild = root->left;
+        TreeNode* rightChild = root->right;
+        
+        if(leftChild == NULL && rightChild == NULL)
+            return 0;
+        
+        if(leftChild != NULL && rightChild != NULL){
+            sum1 += leftChild->val + rightChild->val;
+            if(leftChild->left != NULL && leftChild->right != NULL){
+                sum2 += leftChild->left->val + leftChild->right->val;
+            }
+            else if(leftChild->left != NULL || leftChild->right != NULL){
+                if(leftChild->left == NULL){
+                    sum2 += leftChild->right->val;
+                }
+                else if(leftChild->right == NULL){
+                    sum2 += leftChild->left->val;
+                }
+            }
+            
+            
+            if(rightChild->left != NULL && rightChild->right != NULL){
+                sum2 += rightChild->left->val + rightChild->right->val;
+            }
+            else if(rightChild->left != NULL || rightChild->right != NULL){
+                if(rightChild->left == NULL){
+                    sum2 += rightChild->right->val;
+                }
+                else if(rightChild->right == NULL){
+                    sum2 += rightChild->left->val;
+                }
+            }
+            robUtil(leftChild->left);
+            robUtil(leftChild->right);
+            robUtil(rightChild->left);
+            robUtil(rightChild->right);
+        }
+        
+        else if(leftChild == NULL){
+            sum1 += rightChild->val;
+            if(rightChild->left != NULL && rightChild->right != NULL){
+                sum2 += rightChild->left->val + rightChild->right->val;
+            }
+            else if(rightChild->left != NULL || rightChild->right != NULL){
+                if(rightChild->left == NULL){
+                    sum2 += rightChild->right->val;
+                }
+                else if(rightChild->right == NULL){
+                    sum2 += rightChild->left->val;
+                }
+            }
+            robUtil(rightChild->left);
+            robUtil(rightChild->right);
+        }
+        
+        else if(rightChild == NULL){
+            sum1 += leftChild->val;
+            if(leftChild->left != NULL && leftChild->right != NULL){
+                sum2 += leftChild->left->val + leftChild->right->val;
+            }
+            else if(leftChild->left != NULL || leftChild->right != NULL){
+                if(leftChild->left == NULL){
+                    sum2 += leftChild->right->val;
+                }
+                else if(leftChild->right == NULL){
+                    sum2 += leftChild->left->val;
+                }
+            }
+            robUtil(leftChild->left);
+            robUtil(leftChild->right);
+        }   
+        return 0;
+    }
+};

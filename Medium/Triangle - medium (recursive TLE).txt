@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        return bestChoice(triangle, 0, 0);
+    }
+    
+    int bestChoice(vector<vector<int>>& triangle, int currentRow, int index){
+        if(currentRow == triangle.size()-1)
+            return triangle[currentRow][index];
+        int sum = triangle[currentRow][index];
+        int leftChoice = bestChoice(triangle,currentRow+1, index);
+        int rightChoice = bestChoice(triangle,currentRow+1, index+1);
+        sum += min(leftChoice, rightChoice);
+        return sum;
+    }
+};

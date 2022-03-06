@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+        if(n==1)
+            return triangle[0][0];
+        vector<int> prev(n, INT_MAX);
+        vector<int> curr(n, INT_MAX);
+        int b, sum = INT_MAX, p;
+        prev[0] = triangle[0][0];
+        for(int i = 1; i<n; i++){
+            for(int j=0; j<triangle[i].size(); j++){
+                b = j-1<0 ? j : j-1;
+                curr[j] = min(prev[b], prev[j]) + triangle[i][j];
+                if(j-1>=0)
+                    prev[j-1] = curr[j-1];
+                if(i==n-1)
+                    sum = min(sum, curr[j]);
+            }
+            prev[i] = curr[i];
+        }
+        return sum;
+    }
+};

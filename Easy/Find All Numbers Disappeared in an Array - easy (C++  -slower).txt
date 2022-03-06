@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        vector<int> ans;
+        vector<int> v(nums.size());
+        std::vector<int>::iterator it, st;
+        vector<int> actualRange;
+        for(int i=0; i<nums.size(); i++){
+            actualRange.push_back(i+1);
+        }
+        sort(nums.begin(), nums.end());
+        it = set_difference(actualRange.begin(),
+                              actualRange.end(),
+                              nums.begin(),
+                              nums.end(),
+                              v.begin());
+        for (st = v.begin(); st != it; ++st)
+            ans.push_back(*st);
+        return ans;
+    }
+};

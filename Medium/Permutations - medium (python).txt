@@ -1,0 +1,16 @@
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        self.backTrack(nums, 0, result)
+        return result
+    
+    def backTrack(self, nums, begin, result):
+        if (begin >= len(nums)):
+            result.append(list(nums))
+            return
+        i = begin
+        while(i<len(nums)):            
+            nums[begin], nums[i] = nums[i], nums[begin]
+            self.backTrack(nums, begin +1, result)
+            nums[begin], nums[i] = nums[i], nums[begin]
+            i += 1

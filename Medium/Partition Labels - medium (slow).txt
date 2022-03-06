@@ -1,0 +1,35 @@
+class Solution:
+    def partitionLabels(self, s: str) -> List[int]:
+        last = {}
+        ans = []
+        s2 = s[::-1]
+        i = 0
+'''since we are using a dictionary, we can directly map last['a'] = 1 etc. Think of a histogram. This is similar to that'''
+        while (i<len(s)):
+            last[s[i]] = i    
+            i += 1    
+        print(last)
+        t = ""
+        i = 0
+        p = 0
+        los = []
+        while (i<len(s)):
+            f = 0
+            k = last[s[i]]
+            if (i<=k):
+                if (t==""):
+                    t += s[i:k+1]
+                elif (s[i] in t):
+                    t += s[p + len(t):k+1]
+                else:
+                    f = 1
+                if (f == 1):
+                    los.append(t)
+                    p += len(t)
+                    t = s[i:k+1]
+            i += 1 
+        los.append(t)    
+        for i in los:
+            ans.append(len(i))
+        
+        return ans

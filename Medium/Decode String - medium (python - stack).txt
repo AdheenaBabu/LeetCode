@@ -1,0 +1,21 @@
+class Solution:
+    def decodeString(self, s: str) -> str:
+        st = []
+        multi = 0
+        decodedstring = ""
+        for ch in s:
+            if(ch == '['):
+                st.append(decodedstring)
+                st.append(multi)
+                decodedstring = ""
+                multi = 0
+            elif(ch == ']'):
+                num = st.pop()
+                prevSubstr = st.pop()
+                decodedstring = prevSubstr + (num*decodedstring)
+            elif(ch.isdigit()):
+                multi = multi*10 + int(ch)
+            else:
+                decodedstring += ch
+        return decodedstring
+                

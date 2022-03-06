@@ -1,0 +1,27 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 class Solution \{\
+public:\
+    int rob(vector<int>& nums) \{\
+        int n = nums.size();\
+        if(n == 1)\
+            return nums[0];\
+        return max(robUtil(nums, 0, n-2), robUtil(nums, 1, n-1));\
+    \}\
+    int robUtil(vector<int> &nums, int start, int end)\{\
+        int prev = 0;\
+        int curr = 0;\
+        int temp;\
+        for(int i=start; i<=end; i++)\{\
+            temp = max(prev + nums[i], curr);\
+            prev = curr;\
+            curr = temp;\
+        \}\
+        return curr;\
+    \}\
+\};}

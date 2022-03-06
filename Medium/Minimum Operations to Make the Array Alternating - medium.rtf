@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2636
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 class Solution \{\
+public:\
+    int minimumOperations(vector<int>& nums) \{\
+        int n = nums.size();\
+        if(n==1)\
+            return 0;\
+        \
+        vector<int> freqOdd(100001, 0);\
+        vector<int> freqEven(100001, 0);\
+        \
+        int firstmaxOdd = 0, firstmaxEven = 0;\
+        int freqfirstmaxOdd = 0, freqfirstmaxEven = 0;\
+        \
+        int secondmaxOdd = 0, secondmaxEven = 0;\
+        int freqsecondmaxOdd = 0, freqsecondmaxEven = 0;\
+        int maxVal = nums[0];\
+        for(int i = 0; i<n; i++)\{\
+            maxVal = max(maxVal, nums[i]);\
+            if(i%2 == 0)\{\
+                freqEven[nums[i]]++;\
+            \}else\{\
+                freqOdd[nums[i]]++;\
+            \}\
+        \}\
+        for(int i=1; i<=maxVal; i++)\{\
+            //Finding fisrtMostFreq number and secondMostFreq number in odd indices\
+            if(freqOdd[i] > freqfirstmaxOdd)\{\
+                secondmaxOdd = firstmaxOdd;\
+                freqsecondmaxOdd = freqfirstmaxOdd;\
+                firstmaxOdd = i;\
+                freqfirstmaxOdd = freqOdd[i];\
+            \}else if(freqOdd[i] > freqsecondmaxOdd)\{\
+                secondmaxOdd = i;\
+                freqsecondmaxOdd = freqOdd[i];\
+            \}\
+            \
+            //Finding fisrtMostFreq number and secondMostFreq number in even indices\
+            if(freqEven[i] > freqfirstmaxEven)\{\
+                secondmaxEven = firstmaxEven;\
+                freqsecondmaxEven = freqfirstmaxEven;\
+                firstmaxEven = i;\
+                freqfirstmaxEven = freqEven[i];\
+            \}else if(freqEven[i] > freqsecondmaxEven)\{\
+                secondmaxEven = i;\
+                freqsecondmaxEven = freqEven[i];\
+            \}\
+        \}\
+        \
+        if(firstmaxOdd != firstmaxEven)\
+            return (n - freqfirstmaxOdd - freqfirstmaxEven);\
+        else\
+            return min((n - freqfirstmaxOdd - freqsecondmaxEven), (n - freqsecondmaxOdd - freqfirstmaxEven));\
+    \}\
+\};}

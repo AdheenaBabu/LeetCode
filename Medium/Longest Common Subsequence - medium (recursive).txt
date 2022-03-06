@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int longestCommonSubsequence(string text1, string text2) {
+        int n = text1.length()-1;
+        int m = text2.length()-1;
+        if(text1 == "" || text2 =="")
+            return 0;
+        if(text1[n]==text2[m]){
+            text1.pop_back();
+            text2.pop_back();
+            return 1 + longestCommonSubsequence(text1,text2);
+        }
+        else{
+            return max(longestCommonSubsequence(text1,text2.substr(0, m)), longestCommonSubsequence(text1.substr(0, n),text2));
+        }
+    }
+};

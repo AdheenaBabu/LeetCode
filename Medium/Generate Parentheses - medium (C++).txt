@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        string s = "(";
+        generateParenthesisUtil(n-1,n,s,res);
+        return res;
+    }
+    
+    void generateParenthesisUtil(int open, int close, string s, vector<string> &res){
+        if(open == 0){
+            while(close != 0){
+                s += ')';
+                close--;
+            }
+            res.push_back(s);
+        }
+        else if(open == close){
+            s += '(';
+            generateParenthesisUtil(open-1,close,s,res);
+        }
+        else if(open < close){
+            generateParenthesisUtil(open-1,close,s+'(',res);
+            generateParenthesisUtil(open,close-1,s+')',res);
+        }
+    }
+};

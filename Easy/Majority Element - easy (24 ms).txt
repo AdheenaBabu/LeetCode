@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int fl = floor(nums.size()/2);
+        vector<int> t = nums;
+        sort(t.begin(), t.end());   
+        auto last = unique(t.begin(), t.end()); 
+        t.erase(last, t.end());  
+        for (int i : t) {
+            if (count(nums.begin(), nums.end(),i) > fl)
+                return i;
+        }
+        return 0;
+    }
+};

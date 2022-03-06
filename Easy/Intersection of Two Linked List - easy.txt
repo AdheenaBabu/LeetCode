@@ -1,0 +1,59 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* t1 = headA;
+        ListNode* t2 = headB;
+/*COMMENTED CODE IS AN ALTERNATIVE APPROACH, BUT WILL TAKE MORE TIME*/
+        //vector<ListNode*> vec1;
+        //vector<ListNode*> vec2;
+        int i=0,j=0,diff;
+        if(headA == headB){
+            return headA;
+        }
+        /*if(t1->next == NULL)
+            vec1.push_back(t1);
+        if(t2->next == NULL)
+            vec2.push_back(t2);*/
+        while(t1 !=NULL || t2 != NULL){
+            if(t1 != NULL){
+                //vec1.push_back(t1);
+                t1 = t1->next;
+                i++;
+            }
+            if(t2 != NULL){
+                //vec2.push_back(t2);
+                t2 = t2->next;
+                j++;
+            }
+        }
+        diff = i - j;
+        t1 = headA;
+        t2 = headB;
+        for (int a=0; a<diff ; a++){
+            t1 = t1->next;
+        }
+        for (int a=0; a<-diff ; a++){
+            t2 = t2->next;
+        }
+        while (t1 != t2 && t1 != NULL){
+            t1 = t1->next;
+            t2 = t2->next;
+        }
+        /*while (i>0 && j>0){
+            if(vec1[i-1] == vec2[j-1] && vec1[i-2] != vec2[j-2]){
+                return vec1[i-1];
+            }
+            i--;
+            j--;
+        }*/
+        return t1;
+    }
+};

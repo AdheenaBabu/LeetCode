@@ -1,0 +1,21 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        open = n
+        close = n
+        res = []
+        s = "("
+        self.generateParenthesisUtil(open-1,close, n, s, res)
+        return res
+        
+    def generateParenthesisUtil(self, open, close, n, s, res):
+        if (open == 0):
+            while(close != 0):
+                s += ')'
+                close -= 1
+            res.append(s)
+        elif(open == close):
+            self.generateParenthesisUtil(open-1,close, n, s+'(', res)
+        elif(open < close):
+            self.generateParenthesisUtil(open-1,close, n, s+'(', res)
+            self.generateParenthesisUtil(open,close-1, n, s+')', res)
+        

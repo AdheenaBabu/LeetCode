@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        stack<int> s;
+        for (int i=0; i<nums.size(); i++){
+            if(s.size()>0 && nums[i]!=s.top())
+                s.pop();
+            else
+                s.push(nums[i]);
+        }
+        return s.top();
+    }
+};

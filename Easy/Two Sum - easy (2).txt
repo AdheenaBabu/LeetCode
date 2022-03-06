@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ans;
+        map<int, int> m;
+        
+        for(int i=0; i < nums.size(); i++){
+            m[nums[i]] = i;
+        }
+        
+        for (int i=0; i < nums.size(); i++){
+            
+            int n2 = target - nums[i];
+            
+                if (m.count(n2) && m[n2]!=i){
+                    
+                    return {i, m[n2]};
+
+                }
+            
+        
+           
+        }
+    
+        return {-1,-1};
+
+    }
+};

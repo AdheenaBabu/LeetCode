@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> sub;
+        // sort(candidates.begin(),candidates.end());
+        //we could sort, so that when target<c[i], we can exit the for loop.
+        backTrack(ans, sub, candidates, target, 0);
+        return ans;
+    }
+    
+    void backTrack(vector<vector<int>> &ans, vector<int> &sub, vector<int> &c, int target, int begin){
+        if (target==0) {
+            ans.push_back(sub);
+        }
+        //if target goes below zero, then that combination will not produce the target sum. So ignore that case.
+        //no need for (else if) condition if the array is sorted and if we are checking target>=c[i]. 
+        else if(target>0){  //else
+            for(int i=begin; i<c.size(); i++){ //i<c.size() && target>=c[i] ====>
+                                              // this could be also the condition of for loop 
+                int diff = target - c[i];
+                sub.push_back(c[i]);
+                backTrack(ans,sub,c,diff,i);
+                sub.pop_back();
+            }
+        }
+    }
+};
