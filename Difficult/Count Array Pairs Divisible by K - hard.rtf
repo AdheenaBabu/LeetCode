@@ -1,0 +1,29 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 class Solution \{\
+public:\
+    long long countPairs(vector<int>& nums, int k) \{\
+        unordered_map<int, int> freq;\
+        int n = nums.size();\
+        long long res = 0;\
+        for(int i=0; i<n; i++)\{\
+            int gcd1 = __gcd(nums[i], k);\
+            int gcd2 = k/gcd1;\
+            if(gcd2 == 1)\
+                res += i;\
+            else\{\
+                for(auto x : freq)\{\
+                    if(x.first % gcd2 == 0)\
+                        res += x.second;\
+                \}\
+            \}\
+            freq[gcd1]++;\
+        \}\
+        return res;\
+    \}\
+\};}
